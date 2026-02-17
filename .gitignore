@@ -1,0 +1,80 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+build/
+dist/
+*.exe
+*.msi
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+
+# User data and database
+userData/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Project specific
+BSEScripMaster.txt
+test_breeze_api.py
+clear-stocks.js
+clear-old-stocks.js
+import-stocks.js
+delete-stocks-via-app.html
+test-bse-integration.js
+*.bat
+TASK_*.md
+BSE_TESTING_CHECKLIST.md
+MANUAL_TESTING_GUIDE_BSE.md
+STOCK_IMPORT_GUIDE.md
+
+# Kiro specific (optional - uncomment if you don't want to commit specs)
+# .kiro/specs/

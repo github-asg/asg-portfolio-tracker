@@ -1,0 +1,110 @@
+.reports-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.page-header {
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 0;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+}
+
+/* Year Selector */
+.year-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.year-selector label {
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+.year-selector select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 200px;
+}
+
+.year-selector select:hover {
+  border-color: #667eea;
+}
+
+.year-selector select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reports-page {
+    gap: 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .year-selector {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .year-selector select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .reports-page {
+    gap: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .page-header p {
+    font-size: 0.85rem;
+  }
+
+  .year-selector {
+    padding: 1rem;
+  }
+}

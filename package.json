@@ -1,0 +1,156 @@
+{
+  "name": "stock-portfolio-manager",
+  "version": "1.0.0",
+  "description": "Stock Portfolio Management Software for Indian retail investors",
+  "main": "src/main/main.js",
+  "homepage": "./",
+  "scripts": {
+    "setup": "node scripts/dev-setup.js",
+    "start": "electron .",
+    "dev": "concurrently \"npm run react-dev\" \"wait-on http://localhost:3000 && electron . --dev\"",
+    "react-dev": "set BROWSER=none && react-scripts start",
+    "react-build": "react-scripts build",
+    "electron-dev": "electron . --dev",
+    "electron-pack": "electron-builder",
+    "build": "npm run react-build && electron-builder",
+    "dist": "npm run react-build && electron-builder --publish=never",
+    "test": "react-scripts test --watchAll=false",
+    "test:watch": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "lint": "eslint src/**/*.{js,jsx}",
+    "lint:fix": "eslint src/**/*.{js,jsx} --fix",
+    "format": "prettier --write src/**/*.{js,jsx,css,json}",
+    "type-check": "echo 'TypeScript not configured yet'",
+    "clean": "rimraf build dist node_modules/.cache",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": [
+    "portfolio",
+    "stocks",
+    "indian-market",
+    "capital-gains",
+    "fifo",
+    "electron",
+    "react"
+  ],
+  "author": "Portfolio Manager Team",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.3.4",
+    "bcrypt": "^5.1.0",
+    "better-sqlite3": "^8.7.0",
+    "crypto-js": "^4.1.1",
+    "date-fns": "^2.29.3",
+    "electron-store": "^8.1.0",
+    "jspdf": "^2.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "5.0.1",
+    "recharts": "^2.5.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "concurrently": "^7.6.0",
+    "electron": "^22.3.0",
+    "electron-builder": "^23.6.0",
+    "electron-rebuild": "^3.2.9",
+    "eslint": "^8.36.0",
+    "eslint-plugin-react": "^7.32.2",
+    "fast-check": "^3.7.1",
+    "jest": "^27.5.1",
+    "prettier": "^2.8.4",
+    "rimraf": "^4.4.0",
+    "wait-on": "^7.0.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "appId": "com.portfoliomanager.app",
+    "productName": "Stock Portfolio Manager",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "build/**/*",
+      "src/main/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "!node_modules/.cache/**/*",
+      "!node_modules/electron/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "STOCK_IMPORT_GUIDE.md",
+        "to": "STOCK_IMPORT_GUIDE.md"
+      },
+      {
+        "from": "import-stocks.js",
+        "to": "import-stocks.js"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.finance",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "publisherName": "Portfolio Manager",
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Stock Portfolio Manager",
+      "license": "LICENSE.txt"
+    },
+    "portable": {
+      "artifactName": "StockPortfolioManager-Portable-${version}.exe"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Finance"
+    }
+  }
+}

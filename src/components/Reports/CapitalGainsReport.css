@@ -1,0 +1,352 @@
+.capital-gains-report {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Summary Cards */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #667eea;
+}
+
+.summary-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.summary-card.total {
+  border-left-color: #2e7d32;
+  background: linear-gradient(135deg, #f0f7ff 0%, #f0fff0 100%);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.amount {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  word-break: break-word;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.details:last-child {
+  border-bottom: none;
+}
+
+.details .label {
+  color: #999;
+  font-weight: 500;
+}
+
+.details .value {
+  color: #333;
+  font-family: 'Courier New', monospace;
+  font-weight: 500;
+}
+
+/* Error State */
+.report.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.error-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.error-message p {
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+
+.retry-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Empty State */
+.report.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+/* Gains Sections */
+.gains-section {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.gains-section h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.gains-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.gains-table thead {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.gains-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.gains-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.gains-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.gains-table td {
+  padding: 1rem;
+  color: #333;
+}
+
+.gains-table .symbol {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.gains-table .quantity,
+.gains-table .price,
+.gains-table .date,
+.gains-table .period,
+.gains-table .gain-loss {
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
+
+/* No Gains Message */
+.no-gains {
+  background: white;
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.no-gains .icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  color: #2e7d32;
+}
+
+.no-gains h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.no-gains p {
+  margin: 0;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+/* Export Section */
+.export-section {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.export-btn {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #e0e0e0;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.export-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.export-btn.pdf {
+  color: #d32f2f;
+}
+
+.export-btn.pdf:hover {
+  color: #d32f2f;
+  border-color: #d32f2f;
+}
+
+.export-btn.excel {
+  color: #2e7d32;
+}
+
+.export-btn.excel:hover {
+  color: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.export-btn.csv {
+  color: #1976d2;
+}
+
+.export-btn.csv:hover {
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .gains-table {
+    font-size: 0.8rem;
+  }
+
+  .gains-table th,
+  .gains-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .export-section {
+    flex-direction: column;
+  }
+
+  .export-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .capital-gains-report {
+    gap: 1.5rem;
+  }
+
+  .summary-card {
+    padding: 1rem;
+  }
+
+  .amount {
+    font-size: 1.4rem;
+  }
+
+  .gains-section {
+    padding: 1rem;
+  }
+
+  .gains-table {
+    min-width: 600px;
+    font-size: 0.75rem;
+  }
+
+  .gains-table th,
+  .gains-table td {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .no-gains {
+    padding: 2rem 1rem;
+  }
+}

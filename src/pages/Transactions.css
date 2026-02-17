@@ -1,0 +1,175 @@
+.transactions-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.page-header {
+  margin-bottom: 1rem;
+}
+
+.page-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.page-header p {
+  margin: 0;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+/* Alert */
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert-success {
+  background-color: #efe;
+  color: #3c3;
+  border: 1px solid #cfc;
+}
+
+.alert-icon {
+  font-weight: bold;
+}
+
+/* Page Content */
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Transactions View */
+.transactions-view {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.add-transaction-btn {
+  align-self: flex-start;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-transaction-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.add-transaction-btn:active {
+  transform: translateY(0);
+}
+
+.transactions-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.placeholder-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.transactions-placeholder h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.transactions-placeholder p {
+  margin: 0;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+/* Form View */
+.form-view {
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .transactions-page {
+    gap: 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .transactions-placeholder {
+    padding: 3rem 1.5rem;
+  }
+
+  .placeholder-icon {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .transactions-page {
+    gap: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .page-header p {
+    font-size: 0.85rem;
+  }
+
+  .transactions-placeholder {
+    padding: 2rem 1rem;
+  }
+
+  .placeholder-icon {
+    font-size: 2.5rem;
+  }
+
+  .transactions-placeholder h3 {
+    font-size: 1.1rem;
+  }
+
+  .add-transaction-btn {
+    width: 100%;
+  }
+}

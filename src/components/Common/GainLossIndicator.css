@@ -1,0 +1,133 @@
+.gain-loss-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.gain-loss-indicator.gain {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.gain-loss-indicator.loss {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.gain-loss-indicator.breakeven {
+  background-color: #f5f5f5;
+  color: #666;
+  border: 1px solid #e0e0e0;
+}
+
+.gain-loss-indicator.gain:hover {
+  background-color: #c8e6c9;
+}
+
+.gain-loss-indicator.loss:hover {
+  background-color: #ffcdd2;
+}
+
+.gain-loss-indicator.breakeven:hover {
+  background-color: #eeeeee;
+}
+
+.indicator-icon {
+  font-size: 1.2rem;
+}
+
+.indicator-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.indicator-currency {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.indicator-percent {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* Size variants */
+.gain-loss-indicator.small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.gain-loss-indicator.small .indicator-icon {
+  font-size: 1rem;
+}
+
+.gain-loss-indicator.small .indicator-currency {
+  font-size: 0.8rem;
+}
+
+.gain-loss-indicator.small .indicator-percent {
+  font-size: 0.75rem;
+}
+
+.gain-loss-indicator.large {
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+}
+
+.gain-loss-indicator.large .indicator-icon {
+  font-size: 1.5rem;
+}
+
+.gain-loss-indicator.large .indicator-currency {
+  font-size: 1.1rem;
+}
+
+.gain-loss-indicator.large .indicator-percent {
+  font-size: 0.95rem;
+}
+
+/* Display components styling */
+.currency-display {
+  font-family: 'Courier New', monospace;
+  font-weight: 500;
+}
+
+.currency-display.positive {
+  color: #2e7d32;
+}
+
+.currency-display.negative {
+  color: #c62828;
+}
+
+.number-display {
+  font-family: 'Courier New', monospace;
+  font-weight: 500;
+}
+
+.date-display {
+  font-family: 'Courier New', monospace;
+}
+
+.percentage-display {
+  font-weight: 500;
+}
+
+.percentage-display.positive {
+  color: #2e7d32;
+}
+
+.percentage-display.negative {
+  color: #c62828;
+}
+
+.percentage-display.neutral {
+  color: #666;
+}

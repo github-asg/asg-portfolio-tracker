@@ -1,0 +1,343 @@
+.portfolio-analysis {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Error State */
+.portfolio-analysis.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.error-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.error-message p {
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+
+.retry-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.retry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Analysis Section */
+.analysis-section {
+  background: white;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.analysis-section h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.analysis-section h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Sector Breakdown */
+.sector-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.sector-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sector-details {
+  overflow-x: auto;
+}
+
+.sector-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.sector-table thead {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.sector-table th {
+  padding: 0.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+}
+
+/* Center align all columns except first */
+.sector-table th:not(:first-child) {
+  text-align: center;
+}
+
+.sector-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+.sector-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.sector-table td {
+  padding: 0.5rem;
+  color: #333;
+}
+
+/* Center align all columns except first */
+.sector-table td:not(:first-child) {
+  text-align: center;
+}
+
+.sector-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.sector-color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+/* Allocation Grid */
+.allocation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.allocation-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.allocation-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.8rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.allocation-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  word-break: break-word;
+}
+
+/* Gainers and Losers */
+.gainers-losers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.gainers-card,
+.losers-card {
+  background: white;
+  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+}
+
+.gainers-card h3,
+.losers-card h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.gainers-list,
+.losers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.gainer-item,
+.loser-item {
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s;
+}
+
+.gainer-item:hover,
+.loser-item:hover {
+  background-color: #f5f5f5;
+  border-color: #667eea;
+}
+
+.gainer-item {
+  background-color: #f0f7f0;
+  border-left: 3px solid #2e7d32;
+}
+
+.loser-item {
+  background-color: #fef5f5;
+  border-left: 3px solid #c62828;
+}
+
+.gainer-header,
+.loser-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.gainer-symbol,
+.loser-symbol {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.gainer-return,
+.loser-return {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.gainer-details,
+.loser-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.gainer-value,
+.loser-value {
+  font-weight: 500;
+  font-family: 'Courier New', monospace;
+}
+
+.gainer-qty,
+.loser-qty {
+  color: #999;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sector-content {
+    grid-template-columns: 1fr;
+  }
+
+  .gainers-losers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-analysis {
+    gap: 1.5rem;
+  }
+
+  .analysis-section {
+    padding: 1rem;
+  }
+
+  .allocation-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .allocation-card {
+    padding: 1rem;
+  }
+
+  .sector-table {
+    font-size: 0.8rem;
+  }
+
+  .sector-table th,
+  .sector-table td {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .analysis-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .allocation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .allocation-card h3 {
+    font-size: 0.85rem;
+  }
+
+  .allocation-value {
+    font-size: 1.2rem;
+  }
+
+  .sector-table {
+    min-width: 500px;
+    font-size: 0.75rem;
+  }
+
+  .sector-table th,
+  .sector-table td {
+    padding: 0.4rem;
+  }
+
+  .gainer-item,
+  .loser-item {
+    padding: 0.75rem;
+  }
+}
