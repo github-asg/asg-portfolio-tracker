@@ -196,8 +196,8 @@ The portable version will be in `dist/win-unpacked/` (Windows) or `dist/mac/` (m
 
 - **Financial Year**: April 1 to March 31
 - **Tax Rules**: 
-  - STCG: 15% (Short-term Capital Gains)
-  - LTCG: 10% above ₹1 lakh exemption (Long-term Capital Gains)
+  - STCG: 20% (Short-term Capital Gains)
+  - LTCG: 12.5% above ₹1 lakh exemption (Long-term Capital Gains)
 - **Number Formatting**: Indian numbering system (lakhs/crores)
 - **Market Hours**: 9:15 AM - 3:30 PM IST
 - **Exchange**: BSE (Bombay Stock Exchange)
