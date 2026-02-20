@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
 // Import components
@@ -46,7 +46,6 @@ function AppContent() {
                       <Route path="/transactions" element={<Transactions />} />
                       <Route path="/reports" element={<Reports />} />
                       <Route path="/settings" element={<Settings />} />
-                      {/* Additional routes will be added as we implement features */}
                       <Route path="*" element={<Navigate to="/portfolio" replace />} />
                     </Routes>
                   </Layout>

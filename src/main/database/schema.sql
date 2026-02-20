@@ -65,6 +65,17 @@ CREATE TABLE IF NOT EXISTS realized_gains (
     FOREIGN KEY (buy_transaction_id) REFERENCES transactions(id)
 );
 
+-- Transaction audit table for tracking transaction modifications
+CREATE TABLE IF NOT EXISTS transaction_audit (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    transaction_id INTEGER NOT NULL,
+    modified_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    field_name TEXT NOT NULL,
+    old_value TEXT,
+    new_value TEXT,
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE
+);
+
 -- Price cache table for API data
 CREATE TABLE IF NOT EXISTS price_cache (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -119,6 +130,9 @@ CREATE INDEX IF NOT EXISTS idx_transactions_type ON transactions(transaction_typ
 CREATE INDEX IF NOT EXISTS idx_realized_gains_user_id ON realized_gains(user_id);
 CREATE INDEX IF NOT EXISTS idx_realized_gains_financial_year ON realized_gains(financial_year);
 CREATE INDEX IF NOT EXISTS idx_realized_gains_symbol ON realized_gains(symbol);
+
+CREATE INDEX IF NOT EXISTS idx_transaction_audit_transaction_id ON transaction_audit(transaction_id);
+CREATE INDEX IF NOT EXISTS idx_transaction_audit_modified_at ON transaction_audit(modified_at);
 
 CREATE INDEX IF NOT EXISTS idx_price_cache_symbol ON price_cache(symbol);
 CREATE INDEX IF NOT EXISTS idx_price_cache_exchange ON price_cache(exchange);

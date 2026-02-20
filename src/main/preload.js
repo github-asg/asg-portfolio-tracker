@@ -49,6 +49,28 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getAllTransactions: (sessionToken, filters) => ipcRenderer.invoke('transactions:get-all', sessionToken, filters),
   getTransactionById: (sessionToken, id) => ipcRenderer.invoke('transactions:get-by-id', sessionToken, id),
   
+  // Transaction Editing
+  getTransaction: (sessionToken, transactionId) => ipcRenderer.invoke('transaction:get', sessionToken, transactionId),
+  editTransaction: (sessionToken, transactionId, updates) => ipcRenderer.invoke('transaction:commit-edit', sessionToken, transactionId, updates),
+  getTransactionHistory: (sessionToken, transactionId) => ipcRenderer.invoke('transaction:get-audit-history', sessionToken, transactionId),
+  validateTransactionEdit: (sessionToken, transactionId, editedTransaction) => ipcRenderer.invoke('transaction:validate-edit', sessionToken, transactionId, editedTransaction),
+  calculateTransactionImpact: (sessionToken, transactionId, editedTransaction) => ipcRenderer.invoke('transaction:calculate-impact', sessionToken, transactionId, editedTransaction),
+  
+  // Stock Age Histogram
+  getStockAgeDistribution: (sessionToken, stockSymbol) => ipcRenderer.invoke('stock-age:get-stock-distribution', sessionToken, stockSymbol),
+  getPortfolioAgeDistribution: (sessionToken) => ipcRenderer.invoke('stock-age:get-portfolio-distribution', sessionToken),
+  getBucketDetails: (sessionToken, stockSymbol, bucketName, currentPrice) => ipcRenderer.invoke('stock-age:get-bucket-details', sessionToken, stockSymbol, bucketName, currentPrice),
+  
+  // Mutual Funds (disabled for v1.0.0)
+  // TODO: Uncomment when mutual fund UI is ready
+  // addMutualFund: (sessionToken, mutualFund, allocations) => ipcRenderer.invoke('mutual-fund:add', sessionToken, mutualFund, allocations),
+  // getAllMutualFunds: (sessionToken) => ipcRenderer.invoke('mutual-fund:get-all', sessionToken),
+  // getMutualFund: (sessionToken, id) => ipcRenderer.invoke('mutual-fund:get', sessionToken, id),
+  // updateMutualFund: (sessionToken, id, updates) => ipcRenderer.invoke('mutual-fund:update', sessionToken, id, updates),
+  // deleteMutualFund: (sessionToken, id) => ipcRenderer.invoke('mutual-fund:delete', sessionToken, id),
+  // importMutualFundCSV: (sessionToken, filePath) => ipcRenderer.invoke('mutual-fund:import-csv', sessionToken, filePath),
+  // getConsolidatedHoldings: (sessionToken) => ipcRenderer.invoke('mutual-fund:get-consolidated-holdings', sessionToken),
+  
   // Stocks
   createStock: (sessionToken, stock) => ipcRenderer.invoke('stocks:create', sessionToken, stock),
   getStockBySymbol: (sessionToken, symbol, exchange) => ipcRenderer.invoke('stocks:get-by-symbol', sessionToken, symbol, exchange),

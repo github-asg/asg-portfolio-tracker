@@ -459,3 +459,35 @@
     min-width: 100px;
   }
 }
+
+/* Edit button styles */
+.action-btn.edit-btn {
+  background: #2196F3;
+  margin-right: 8px;
+}
+
+.action-btn.edit-btn:hover:not(:disabled) {
+  background: #1976D2;
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Large modal for editor */
+.modal-large {
+  background: white;
+  border-radius: 8px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-large .transaction-editor {
+  margin: 0;
+  box-shadow: none;
+  max-width: none;
+}

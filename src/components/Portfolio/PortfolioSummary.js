@@ -4,6 +4,7 @@ import CurrencyDisplay from '../Common/CurrencyDisplay';
 import PercentageDisplay from '../Common/PercentageDisplay';
 import GainLossIndicator from '../Common/GainLossIndicator';
 import LoadingSpinner from '../Common/LoadingSpinner';
+import StockAgeHistogram from './StockAgeHistogram';
 import './PortfolioSummary.css';
 
 /**
@@ -16,6 +17,8 @@ const PortfolioSummary = ({ refreshTrigger }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [bseDataCache, setBseDataCache] = useState({});
+  const [selectedStockForHistogram, setSelectedStockForHistogram] = useState(null);
+  const [isHistogramModalOpen, setIsHistogramModalOpen] = useState(false);
 
   useEffect(() => {
     fetchPortfolioData();
@@ -86,6 +89,16 @@ const PortfolioSummary = ({ refreshTrigger }) => {
     }
     
     setBseDataCache(newBseCache);
+  };
+
+  const handleOpenHistogram = (symbol) => {
+    setSelectedStockForHistogram(symbol);
+    setIsHistogramModalOpen(true);
+  };
+
+  const handleCloseHistogram = () => {
+    setIsHistogramModalOpen(false);
+    setSelectedStockForHistogram(null);
   };
 
   if (isLoading) {
@@ -214,15 +227,22 @@ const PortfolioSummary = ({ refreshTrigger }) => {
                   <th>Current Price</th>
                   <th>Total Cost</th>
                   <th>Current Value</th>
+                  <th>Allocation %</th>
                   <th>Gain/Loss</th>
                   <th>Return %</th>
                   <th>52W Range</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {portfolio.holdings.map((holding, idx) => {
                   const bseData = bseDataCache[holding.symbol];
                   const hasValidBseData = bseData && bseData.ScripName;
+                  
+                  // Calculate allocation percentage
+                  const allocationPercent = portfolio.currentValue > 0 
+                    ? (holding.currentValue / portfolio.currentValue) * 100 
+                    : 0;
                   
                   return (
                     <tr key={idx} className="holding-row">
@@ -260,6 +280,13 @@ const PortfolioSummary = ({ refreshTrigger }) => {
                       <td className="currency">
                         <CurrencyDisplay value={holding.currentValue} />
                       </td>
+                      <td className="percent allocation">
+                        <PercentageDisplay
+                          value={allocationPercent}
+                          decimals={2}
+                          showSign={false}
+                        />
+                      </td>
                       <td className="gain-loss">
                         <GainLossIndicator
                           gainLoss={holding.gainLoss}
@@ -296,11 +323,40 @@ const PortfolioSummary = ({ refreshTrigger }) => {
                           <span className="no-data">—</span>
                         )}
                       </td>
+                      <td className="actions">
+                        <button
+                          className="histogram-btn"
+                          onClick={() => handleOpenHistogram(holding.symbol)}
+                          title="View age distribution"
+                        >
+                          📊
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
+          </div>
+        </div>
+      )}
+
+      {/* Age Distribution Modal */}
+      {isHistogramModalOpen && selectedStockForHistogram && (
+        <div className="histogram-modal-overlay" onClick={handleCloseHistogram}>
+          <div className="histogram-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Age Distribution - {selectedStockForHistogram}</h2>
+              <button className="modal-close-btn" onClick={handleCloseHistogram}>
+                ✕
+              </button>
+            </div>
+            <div className="modal-content">
+              <StockAgeHistogram 
+                stockSymbol={selectedStockForHistogram} 
+                viewMode="stock" 
+              />
+            </div>
           </div>
         </div>
       )}

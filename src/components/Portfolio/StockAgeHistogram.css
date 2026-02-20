@@ -1,0 +1,207 @@
+/* Stock Age Histogram Styles */
+
+.histogram-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Summary Section */
+.histogram-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 16px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.summary-divider {
+  color: #ddd;
+  font-size: 18px;
+}
+
+/* Chart Section */
+.histogram-chart {
+  width: 100%;
+  min-height: 300px;
+}
+
+/* Custom Tooltip */
+.histogram-tooltip {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip-label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.tooltip-quantity,
+.tooltip-percentage {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+/* Legend */
+.histogram-legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.legend-text {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Loading State */
+.histogram-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.histogram-loading p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Error State */
+.histogram-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #e74c3c;
+}
+
+.error-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.error-message {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.retry-button {
+  padding: 8px 20px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.retry-button:hover {
+  background: #2980b9;
+}
+
+/* Empty State */
+.histogram-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #95a5a6;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.empty-message {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .histogram-summary {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .summary-divider {
+    display: none;
+  }
+
+  .histogram-legend {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .histogram-chart {
+    min-height: 250px;
+  }
+}

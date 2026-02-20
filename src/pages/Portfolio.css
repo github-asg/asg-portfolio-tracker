@@ -200,3 +200,26 @@
     font-size: 1rem;
   }
 }
+
+/* Portfolio Section Styles */
+.portfolio-section {
+  margin-top: 1.5rem;
+}
+
+.section-header {
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.section-description {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}

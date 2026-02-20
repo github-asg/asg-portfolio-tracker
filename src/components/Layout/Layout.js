@@ -90,7 +90,7 @@ const Layout = ({ user, onLogout, children }) => {
 
       {/* Footer */}
       <footer className="layout-footer">
-        <p>&copy; 2024 Stock Portfolio Manager. All rights reserved.</p>
+        <p>&copy; 2026 Stock Portfolio Manager. Built by AsG Labs with Kiro.</p>
       </footer>
     </div>
   );

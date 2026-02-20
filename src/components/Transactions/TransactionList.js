@@ -3,6 +3,7 @@ import { useSession } from '../../context/SessionContext';
 import CurrencyDisplay from '../Common/CurrencyDisplay';
 import DateDisplay from '../Common/DateDisplay';
 import LoadingSpinner from '../Common/LoadingSpinner';
+import TransactionEditor from './TransactionEditor';
 import './TransactionList.css';
 
 /**
@@ -19,6 +20,7 @@ const TransactionList = () => {
     sortBy: 'date-desc' // 'date-asc', 'date-desc', 'symbol', 'amount'
   });
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [editingTransactionId, setEditingTransactionId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
@@ -60,6 +62,19 @@ const TransactionList = () => {
       console.error('Failed to delete transaction:', err);
       setError(err.message || 'Failed to delete transaction');
     }
+  };
+
+  const handleEdit = (transactionId) => {
+    setEditingTransactionId(transactionId);
+  };
+
+  const handleEditSave = () => {
+    setEditingTransactionId(null);
+    fetchTransactions(); // Refresh the list
+  };
+
+  const handleEditCancel = () => {
+    setEditingTransactionId(null);
   };
 
   const getSortedTransactions = () => {
@@ -206,9 +221,18 @@ const TransactionList = () => {
                     </td>
                     <td className="actions">
                       <button
+                        className="action-btn edit-btn"
+                        onClick={() => handleEdit(transaction.id)}
+                        title="Edit transaction"
+                        disabled={editingTransactionId !== null}
+                      >
+                        ✏️
+                      </button>
+                      <button
                         className="action-btn delete-btn"
                         onClick={() => setDeleteConfirm(transaction.id)}
                         title="Delete transaction"
+                        disabled={editingTransactionId !== null}
                       >
                         🗑️
                       </button>
@@ -242,6 +266,19 @@ const TransactionList = () => {
             </div>
           )}
         </>
+      )}
+
+      {/* Transaction Editor Modal */}
+      {editingTransactionId && (
+        <div className="modal-overlay">
+          <div className="modal-large">
+            <TransactionEditor
+              transactionId={editingTransactionId}
+              onSave={handleEditSave}
+              onCancel={handleEditCancel}
+            />
+          </div>
+        </div>
       )}
 
       {/* Delete Confirmation Modal */}

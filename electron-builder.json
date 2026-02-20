@@ -1,7 +1,8 @@
 {
   "appId": "com.portfoliomanager.app",
   "productName": "Stock Portfolio Manager",
-  "copyright": "Copyright © 2024 Portfolio Manager Team",
+  "copyright": "Copyright © 2026 AsG Labs",
+  "asar": false,
   "directories": {
     "output": "dist",
     "buildResources": "assets"
@@ -10,83 +11,28 @@
     "build/**/*",
     "src/main/**/*",
     "node_modules/**/*",
-    "package.json"
+    "package.json",
+    "!public/**/*",
+    "!node_modules/.cache/**/*",
+    "!node_modules/electron/**/*",
+    "!node_modules/electron-builder/**/*"
   ],
-  "extraResources": [
+  "extraFiles": [
     {
-      "from": "assets/",
-      "to": "assets/",
-      "filter": ["**/*"]
+      "from": "BSEScripMaster.txt",
+      "to": "BSEScripMaster.txt"
     }
   ],
-  "mac": {
-    "category": "public.app-category.finance",
-    "target": [
-      {
-        "target": "dmg",
-        "arch": ["x64", "arm64"]
-      }
-    ],
-    "icon": "assets/icon.icns",
-    "darkModeSupport": true,
-    "hardenedRuntime": true,
-    "gatekeeperAssess": false,
-    "entitlements": "assets/entitlements.mac.plist",
-    "entitlementsInherit": "assets/entitlements.mac.plist"
-  },
   "win": {
     "target": [
       {
-        "target": "portable",
-        "arch": ["x64"]
-      },
-      {
         "target": "nsis",
         "arch": ["x64"]
-      },
-      {
-        "target": "zip",
-        "arch": ["x64"]
       }
     ],
-    "icon": "assets/icon.ico",
-    "publisherName": "Portfolio Manager Team",
+    "icon": "public/favicon.ico",
+    "publisherName": "AsG Labs",
     "verifyUpdateCodeSignature": false
-  },
-  "linux": {
-    "target": [
-      {
-        "target": "AppImage",
-        "arch": ["x64"]
-      },
-      {
-        "target": "deb",
-        "arch": ["x64"]
-      }
-    ],
-    "icon": "assets/icon.png",
-    "category": "Office"
-  },
-  "dmg": {
-    "title": "Stock Portfolio Manager",
-    "icon": "assets/icon.icns",
-    "background": "assets/dmg-background.png",
-    "contents": [
-      {
-        "x": 130,
-        "y": 220
-      },
-      {
-        "x": 410,
-        "y": 220,
-        "type": "link",
-        "path": "/Applications"
-      }
-    ],
-    "window": {
-      "width": 540,
-      "height": 380
-    }
   },
   "nsis": {
     "oneClick": false,
@@ -95,12 +41,6 @@
     "createStartMenuShortcut": true,
     "shortcutName": "Stock Portfolio Manager",
     "include": "assets/installer.nsh"
-  },
-  "msi": {
-    "oneClick": false,
-    "createDesktopShortcut": true,
-    "createStartMenuShortcut": true,
-    "shortcutName": "Stock Portfolio Manager"
   },
   "publish": null,
   "buildVersion": "1.0.0"

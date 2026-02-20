@@ -87,6 +87,9 @@
   "build": {
     "appId": "com.portfoliomanager.app",
     "productName": "Stock Portfolio Manager",
+    "extends": null,
+    "asar": false,
+    "npmRebuild": false,
     "directories": {
       "output": "dist",
       "buildResources": "assets"
@@ -94,12 +97,17 @@
     "files": [
       "build/**/*",
       "src/main/**/*",
+      "src/utils/**/*",
       "node_modules/**/*",
       "package.json",
       "!node_modules/.cache/**/*",
       "!node_modules/electron/**/*"
     ],
     "extraFiles": [
+      {
+        "from": "BSEScripMaster.txt",
+        "to": "BSEScripMaster.txt"
+      },
       {
         "from": "STOCK_IMPORT_GUIDE.md",
         "to": "STOCK_IMPORT_GUIDE.md"
@@ -123,15 +131,9 @@
           "arch": [
             "x64"
           ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
         }
       ],
-      "publisherName": "Portfolio Manager",
+      "publisherName": "AsG Labs",
       "verifyUpdateCodeSignature": false
     },
     "nsis": {
@@ -141,9 +143,6 @@
       "createStartMenuShortcut": true,
       "shortcutName": "Stock Portfolio Manager",
       "license": "LICENSE.txt"
-    },
-    "portable": {
-      "artifactName": "StockPortfolioManager-Portable-${version}.exe"
     },
     "linux": {
       "target": [

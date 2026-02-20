@@ -51,10 +51,15 @@ class DatabaseManager {
       
       await this.connectionPool.initialize();
       
+      // Mark as initialized BEFORE running migrations
+      this.isInitialized = true;
+      
+      // Run migrations after database is fully initialized
+      await this.runMigrations();
+      
       // Set up cleanup intervals
       this.setupCleanupIntervals();
       
-      this.isInitialized = true;
       console.log(`Database initialized at: ${this.dbPath}`);
       
       return true;
@@ -110,9 +115,6 @@ class DatabaseManager {
       
       console.log('Database schema created successfully');
       
-      // Run migrations
-      await this.runMigrations();
-      
       // Create demo user if it doesn't exist
       await this.createDemoUserIfNeeded();
     } catch (error) {
@@ -125,6 +127,7 @@ class DatabaseManager {
    * Run database migrations
    */
   async runMigrations() {
+    console.log('=== Running Database Migrations ===');
     try {
       // Run ISIN migration
       const { addISINColumn } = require('./add-isin-migration');
@@ -137,10 +140,30 @@ class DatabaseManager {
       // Run price cache migration
       const { migratePriceCacheTable } = require('./price-cache-migration');
       await migratePriceCacheTable(this);
+      
+      // Run transaction audit migration
+      console.log('Loading transaction audit migration...');
+      const transactionAuditModule = require('./migrations/add-transaction-audit');
+      console.log('Module loaded:', transactionAuditModule);
+      console.log('addTransactionAudit function:', typeof transactionAuditModule.addTransactionAudit);
+      const { addTransactionAudit } = transactionAuditModule;
+      if (typeof addTransactionAudit !== 'function') {
+        throw new Error('addTransactionAudit is not a function');
+      }
+      console.log('Running transaction audit migration...');
+      await addTransactionAudit(this);
+      console.log('Transaction audit migration completed');
+      
+      // Run mutual funds tables migration (disabled for v1.0.0)
+      // TODO: Uncomment when mutual fund feature is ready
+      // const { addMutualFundsTables } = require('./migrations/add-mutual-funds');
+      // await addMutualFundsTables(this);
     } catch (error) {
       console.error('Migration failed:', error);
+      console.error('Stack trace:', error.stack);
       // Don't throw - migrations are not critical for basic functionality
     }
+    console.log('=== Migrations Complete ===');
   }
 
   /**

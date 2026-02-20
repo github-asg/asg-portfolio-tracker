@@ -33,6 +33,15 @@ const BseScripLoader = require('./data/bseScripLoader');
 const StockLookupService = require('./services/stockLookupService');
 const { registerStockLookupHandlers } = require('./ipc/stockLookupHandler');
 
+// Import transaction editing components
+const { registerTransactionEditingHandlers } = require('./ipc/transactionEditingHandler');
+
+// Import stock age histogram components
+const { registerStockAgeHistogramHandlers } = require('./ipc/stockAgeHistogramHandler');
+
+// Import mutual fund components (disabled for v1.0.0)
+// const { registerMutualFundHandlers } = require('./ipc/mutualFundHandler');
+
 // Initialize Stock Lookup Service (singleton)
 const stockLookupService = new StockLookupService();
 
@@ -111,6 +120,16 @@ async function createWindow() {
   // Register stock lookup IPC handlers
   registerStockLookupHandlers(stockLookupService);
 
+  // Register transaction editing IPC handlers
+  registerTransactionEditingHandlers();
+
+  // Register stock age histogram IPC handlers
+  registerStockAgeHistogramHandlers();
+
+  // Register mutual fund IPC handlers
+  // TODO: Uncomment when mutual fund UI is ready
+  // registerMutualFundHandlers();
+
   // Load and initialize Breeze API credentials if available
   try {
     console.log('Checking for saved Breeze API credentials...');
@@ -137,60 +156,71 @@ async function createWindow() {
 
   // Create the browser window
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 1920,
+    height: 1080,
     minWidth: 1000,
     minHeight: 600,
+    show: false, // Don't show until ready
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       enableRemoteModule: false,
       preload: path.join(__dirname, 'preload.js')
-    },
-    show: true // Show immediately instead of waiting
+    }
   });
 
   console.log('✓ Window created');
 
   // Load the app with retry logic
-  const startUrl = isDev 
-    ? 'http://localhost:3000' 
-    : `file://${path.join(__dirname, '../../build/index.html')}`;
-  
-  console.log(`Loading URL: ${startUrl}`);
-  
-  const loadWithRetry = async (retries = 5) => {
-    for (let i = 0; i < retries; i++) {
-      try {
-        await mainWindow.loadURL(startUrl);
-        console.log('✓ URL loaded successfully');
-        return;
-      } catch (error) {
-        console.log(`✗ Load attempt ${i + 1} failed:`, error.message);
-        if (i < retries - 1) {
-          console.log('Retrying in 2 seconds...');
-          await new Promise(resolve => setTimeout(resolve, 2000));
+  if (isDev) {
+    const startUrl = 'http://localhost:3000';
+    console.log(`Loading URL: ${startUrl}`);
+    
+    const loadWithRetry = async (retries = 5) => {
+      for (let i = 0; i < retries; i++) {
+        try {
+          await mainWindow.loadURL(startUrl);
+          console.log('✓ URL loaded successfully');
+          return;
+        } catch (error) {
+          console.log(`✗ Load attempt ${i + 1} failed:`, error.message);
+          if (i < retries - 1) {
+            console.log('Retrying in 2 seconds...');
+            await new Promise(resolve => setTimeout(resolve, 2000));
+          }
         }
       }
+      console.error('All load attempts failed');
+    };
+    
+    await loadWithRetry();
+  } else {
+    // In production, use loadFile for better compatibility
+    const indexPath = path.join(__dirname, '../../build/index.html');
+    console.log(`Loading file: ${indexPath}`);
+    console.log(`__dirname: ${__dirname}`);
+    console.log(`File exists: ${fs.existsSync(indexPath)}`);
+    
+    try {
+      await mainWindow.loadFile(indexPath);
+      console.log('✓ File loaded successfully');
+    } catch (error) {
+      console.error('✗ Failed to load file:', error);
+      throw error;
     }
-    console.error('All load attempts failed');
-  };
-  
-  await loadWithRetry();
+  }
 
   // Show window when ready to prevent visual flash
   mainWindow.once('ready-to-show', () => {
     console.log('✓ Window ready, showing now');
-    mainWindow.show();
-    mainWindow.focus(); // Force focus
     
-    // Force reload if page is blank
-    setTimeout(() => {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        console.log('Force refreshing page...');
-        mainWindow.webContents.reload();
-      }
-    }, 1000);
+    // Maximize window in production, show normally in dev
+    if (!isDev) {
+      mainWindow.maximize();
+    }
+    
+    mainWindow.show();
+    mainWindow.focus();
   });
 
   // Handle load failures with immediate retry
@@ -209,7 +239,7 @@ async function createWindow() {
     console.log('✓ Page loaded successfully');
   });
 
-  // Open DevTools in development
+  // Open DevTools only in development mode
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
