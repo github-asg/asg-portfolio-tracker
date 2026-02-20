@@ -160,7 +160,6 @@ async function createWindow() {
     height: 1080,
     minWidth: 1000,
     minHeight: 600,
-    show: false, // Don't show until ready
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -210,17 +209,14 @@ async function createWindow() {
     }
   }
 
-  // Show window when ready to prevent visual flash
-  mainWindow.once('ready-to-show', () => {
-    console.log('✓ Window ready, showing now');
+  // Log successful loads and maximize in production
+  mainWindow.webContents.on('did-finish-load', () => {
+    console.log('✓ Page loaded successfully');
     
-    // Maximize window in production, show normally in dev
+    // Maximize window in production
     if (!isDev) {
       mainWindow.maximize();
     }
-    
-    mainWindow.show();
-    mainWindow.focus();
   });
 
   // Handle load failures with immediate retry
@@ -229,14 +225,9 @@ async function createWindow() {
     if (isDev && validatedURL.includes('localhost:3000')) {
       console.log('Retrying React dev server...');
       setTimeout(() => {
-        mainWindow.loadURL(startUrl);
+        mainWindow.loadURL('http://localhost:3000');
       }, 2000);
     }
-  });
-
-  // Log successful loads
-  mainWindow.webContents.on('did-finish-load', () => {
-    console.log('✓ Page loaded successfully');
   });
 
   // Open DevTools only in development mode
@@ -458,10 +449,11 @@ ipcMain.handle('database:create-auto-backup', async (event, backupDirectory) => 
 // Authentication IPC handlers
 ipcMain.handle('auth:create-user', async (event, username, password) => {
   try {
-    return await authenticationService.createUser(username, password);
+    const user = await authenticationService.createUser(username, password);
+    return { success: true, user };
   } catch (error) {
     console.error('Failed to create user:', error);
-    throw error;
+    return { success: false, error: error.message };
   }
 });
 

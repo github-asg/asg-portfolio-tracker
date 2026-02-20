@@ -11,8 +11,7 @@ const APIConfiguration = ({ sessionToken }) => {
     secretKey: '',
     apiSession: ''
   });
-  const [masterPassword, setMasterPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [hasCredentials, setHasCredentials] = useState(false);
@@ -63,16 +62,12 @@ const APIConfiguration = ({ sessionToken }) => {
       setError('API Session is required');
       return false;
     }
-    if (!masterPassword.trim()) {
-      setError('Master Password is required');
+    if (!loginPassword.trim()) {
+      setError('Login Password is required to encrypt your credentials');
       return false;
     }
-    if (masterPassword !== confirmPassword) {
-      setError('Passwords do not match');
-      return false;
-    }
-    if (masterPassword.length < 6) {
-      setError('Master Password must be at least 6 characters');
+    if (loginPassword.length < 6) {
+      setError('Login Password must be at least 6 characters');
       return false;
     }
     return true;
@@ -90,7 +85,7 @@ const APIConfiguration = ({ sessionToken }) => {
     try {
       setIsLoading(true);
       
-      // Save credentials
+      // Save credentials using the login password for encryption
       await window.electronAPI.saveCredentials(
         sessionToken,
         'breeze',
@@ -99,12 +94,12 @@ const APIConfiguration = ({ sessionToken }) => {
           secretKey: credentials.secretKey.trim(),
           apiSession: credentials.apiSession.trim()
         },
-        masterPassword
+        loginPassword
       );
 
       // Initialize Breeze client with the saved credentials
       try {
-        await window.electronAPI.initializeBreezeClient(sessionToken, masterPassword);
+        await window.electronAPI.initializeBreezeClient(sessionToken, loginPassword);
         setMessage('API credentials saved and Breeze client initialized successfully');
       } catch (initError) {
         console.warn('Credentials saved but failed to initialize Breeze client:', initError);
@@ -112,8 +107,7 @@ const APIConfiguration = ({ sessionToken }) => {
       }
 
       setCredentials({ appKey: '', secretKey: '', apiSession: '' });
-      setMasterPassword('');
-      setConfirmPassword('');
+      setLoginPassword('');
       setHasCredentials(true);
     } catch (err) {
       setError(err.message || 'Failed to save credentials');
@@ -178,7 +172,7 @@ const APIConfiguration = ({ sessionToken }) => {
         <h2>ICICI Breeze API Configuration</h2>
         <p className="section-description">
           Configure your ICICI Breeze API credentials to enable real-time stock price updates.
-          Your credentials are encrypted and stored securely on your device.
+          Your credentials are encrypted using your login password and stored securely on your device.
         </p>
 
         {hasCredentials && (
@@ -190,7 +184,7 @@ const APIConfiguration = ({ sessionToken }) => {
         )}
 
         <form onSubmit={handleSaveCredentials} className="config-form">
-          <div className="credential-group">
+          <div className="form-group">
             <label htmlFor="appKey">App Key *</label>
             <input
               type="text"
@@ -200,11 +194,12 @@ const APIConfiguration = ({ sessionToken }) => {
               onChange={handleInputChange}
               placeholder="Enter your ICICI Breeze App Key"
               required
+              disabled={isLoading}
             />
             <small>App Key received during Breeze API registration</small>
           </div>
 
-          <div className="credential-group">
+          <div className="form-group">
             <label htmlFor="secretKey">Secret Key *</label>
             <input
               type="password"
@@ -214,11 +209,12 @@ const APIConfiguration = ({ sessionToken }) => {
               onChange={handleInputChange}
               placeholder="Enter your Secret Key"
               required
+              disabled={isLoading}
             />
             <small>Secret Key received during Breeze API registration</small>
           </div>
 
-          <div className="credential-group">
+          <div className="form-group">
             <label htmlFor="apiSession">API Session *</label>
             <input
               type="text"
@@ -228,37 +224,28 @@ const APIConfiguration = ({ sessionToken }) => {
               onChange={handleInputChange}
               placeholder="Enter API Session from login URL"
               required
+              disabled={isLoading}
             />
             <small>API Session obtained after logging into Breeze API portal</small>
           </div>
 
           <div className="form-divider">
-            <span>Master Password</span>
+            <span>Encryption Password</span>
           </div>
 
           <div className="form-group">
-            <label htmlFor="master-password">Master Password</label>
+            <label htmlFor="loginPassword">Your Login Password *</label>
             <input
-              id="master-password"
               type="password"
-              value={masterPassword}
-              onChange={(e) => setMasterPassword(e.target.value)}
-              placeholder="Create a master password to encrypt your credentials"
+              id="loginPassword"
+              name="loginPassword"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+              placeholder="Enter your login password to encrypt credentials"
+              required
               disabled={isLoading}
             />
-            <small>Minimum 6 characters. You&apos;ll need this to access your credentials.</small>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirm-password">Confirm Master Password</label>
-            <input
-              id="confirm-password"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirm your master password"
-              disabled={isLoading}
-            />
+            <small>Your login password is used to encrypt the API credentials. This password is not stored.</small>
           </div>
 
           {error && (
@@ -332,7 +319,7 @@ const APIConfiguration = ({ sessionToken }) => {
         <h3>🔒 Security Information</h3>
         <ul>
           <li>Your API credentials are encrypted using AES-256 encryption</li>
-          <li>The master password is never stored; only a hash is kept</li>
+          <li>Your login password is used to encrypt the credentials</li>
           <li>All data is stored locally on your device</li>
           <li>Your credentials are never sent to any external server</li>
           <li>Never share your API credentials with anyone</li>
