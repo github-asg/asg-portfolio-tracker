@@ -88,7 +88,15 @@
     "appId": "com.portfoliomanager.app",
     "productName": "Stock Portfolio Manager",
     "extends": null,
-    "asar": false,
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**/*",
+      "node_modules/bcrypt/**/*",
+      "node_modules/bindings/**/*",
+      "node_modules/prebuild-install/**/*",
+      "node_modules/node-addon-api/**/*",
+      "node_modules/file-uri-to-path/**/*"
+    ],
     "npmRebuild": false,
     "directories": {
       "output": "dist",
